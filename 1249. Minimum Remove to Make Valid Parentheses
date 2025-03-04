@@ -1,0 +1,31 @@
+class Solution {
+    public String minRemoveToMakeValid(String s) {
+        // В Java строки неизменяемы, поэтому нужно сделать StringBuilder,
+        // который уже можно менять
+        StringBuilder result = new StringBuilder(s);
+        Stack<Integer> stack = new Stack<>(); // храним индексы для символа '('
+
+        for (int i = 0; i < result.length(); i++) {
+            char charAtIndex = result.charAt(i);
+            if (charAtIndex == '(') {
+                stack.push(i); //добавили индекс '('
+            } else if (charAtIndex == ')') {
+                if (stack.isEmpty()) {
+                    // скобка ")" лишняя и должна быть удалена
+                    result.setCharAt(i, '\0'); // Заменяем на null-символ для удаления
+                } else {
+                    stack.pop();
+                }
+            }
+        }
+
+        // проходимся по всем лишним скобкам "(" и удаляем их
+        while (!stack.isEmpty()) {
+            int index = stack.pop();
+            result.setCharAt(index, '\0'); // Заменяем на null-символ
+        }
+
+        // делаем строку из элементов StringBuilder, убирая null-символы
+        return result.toString().replace("\0", "");
+    }
+}
