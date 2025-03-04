@@ -1,5 +1,11 @@
 time:O(n)
 time:O(n)
+тут еще можно сделать проверку: 
+s.length()%2!=0{
+return false;
+}
+
+
 class Solution {
 
     public boolean isValid(String s) {
